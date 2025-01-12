@@ -33,12 +33,19 @@ Table Creation: A table named dbo.telecom  is created to store the sales data. T
 
 '''sql
  CREATE TABLE Customers (
+ 
     CustomerID VARCHAR(50) PRIMARY KEY,
+    
     Gender BIT,
+    
     Age INT,
+    
     Married BIT,
+    
     Number_of_Dependents INT,
+    
     City VARCHAR(255),
+    
     Zip_Code VARCHAR(10),
     Latitude DECIMAL(9,6),
     Longitude DECIMAL(9,6),
