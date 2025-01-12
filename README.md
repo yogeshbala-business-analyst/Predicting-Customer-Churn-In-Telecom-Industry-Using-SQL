@@ -31,7 +31,8 @@ Splitting data into relevant subsets for analysis.
 Database Creation: The project starts by creating a database named project_1
 Table Creation: A table named dbo.telecom  is created to store the sales data. The table structure includes columns for Customer ID, Gender, Age, Married, Number of Dependents, City, Zip Code, Latitude, Longitude, Number of Referrals, Tenure in Months, Offer, Phone Service, Avg Monthly Long Distance Charges, Multiple Lines, Internet Service, Internet Type, Avg Monthly GB Download, Online Security, Online Backup, Device Protection Plan, Premium Tech Support, Streaming TV, Streaming Movies, Streaming Music, Unlimited Data, Contract, Paperless Billing, Payment Method, Monthly Charge, Total Charges, Total Refunds, Total Extra Data Charges, Total Long Distance Charges, Total Revenue, Customer Status, Churn Category, Churn Reason
 
-''' CREATE TABLE Customers (
+'''sql
+ CREATE TABLE Customers (
     CustomerID VARCHAR(50) PRIMARY KEY,
     Gender BIT,
     Age INT,
@@ -71,3 +72,4 @@ Table Creation: A table named dbo.telecom  is created to store the sales data. T
     Churn_Category VARCHAR(50),
     Churn_Reason TEXT
 );
+'''
