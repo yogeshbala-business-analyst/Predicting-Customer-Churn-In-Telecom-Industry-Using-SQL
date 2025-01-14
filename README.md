@@ -238,7 +238,7 @@ Identify customers with high total charges who have churned
       Phone_Service,
       count(*) as ChurnedCustomers
       from dbo.telecom 
-	  where Customer_Status = 'Churned'
+    where Customer_Status = 'Churned'
       group by 
       Internet_Service,
       Phone_Service
@@ -329,12 +329,12 @@ Identify customers with high total charges who have churned
         dbo.telecom
      WHERE 
         Customer_Status = 'Churned' )
-SELECT 
+    SELECT 
      Customer_ID, 
      TotalOnlineServices
-FROM 
+    FROM 
      ChurnedCustomers
-ORDER BY 
+    ORDER BY 
      TotalOnlineServices DESC
 
 
@@ -342,7 +342,7 @@ ORDER BY
 
 
 
-   select
+    select
      Streaming_Movies,
      Streaming_Music,
      Streaming_TV, 
@@ -481,14 +481,14 @@ CREATE VIEW HighCharge_Customers_ByContract AS
                            t1.Customer_ID,
                            t1.Monthly_Charge;
     
-SELECT * FROM Churned_Customer_Cumulative_Charges
+     SELECT * FROM Churned_Customer_Cumulative_Charges
 
 
 ## Stored Procedure to Identify High-Value Customers at Risk of Churni
 
-CREATE PROCEDURE IdentifyHighValueCustomersAtRisk
-AS
-BEGIN
+    CREATE PROCEDURE IdentifyHighValueCustomersAtRisk
+    AS
+    BEGIN
     --Define threshold for high-value customers (e.g., top 20% by TotalCharges)
      DECLARE @Percentile DECIMAL(5,2) = 0.8; 
 
