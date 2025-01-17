@@ -2,7 +2,7 @@
 ## Problem Statement:
 This project is designed to demonstrate SQL skills and techniques typically used by data analysts to explore, clean, and analyze
 Predicting Customer Churn in Telecom Industry Data Set The project involves setting up a Customer_Churn database, performing exploratory data analysis (EDA), and answering specific business questions through SQL queries.
-![a166036d748eb62d9f19b04d7a4e88cc](https://github.com/user-attachments/assets/60e9989d-e884-40fe-80dd-5fab53971f83)
+
 
 ## Objectives
 Data Collection: Use SQL to query the telecom database and extract relevant data.
