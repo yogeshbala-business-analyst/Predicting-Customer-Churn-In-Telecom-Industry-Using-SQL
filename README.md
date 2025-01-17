@@ -28,9 +28,14 @@ Normalizing numerical features.
 
 Splitting data into relevant subsets for analysis.
 
+## Dashboard ![Screenshot 2025-01-17 111251](https://github.com/user-attachments/assets/a4f6d4c3-90d9-4e07-8892-80731cc65455)
+
 ## Database Setup 
 Database Creation: The project starts by creating a database named project_1
-Table Creation: A table named dbo.telecom  is created to store the sales data. The table structure includes columns for Customer ID, Gender, Age, Married, Number of Dependents, City, Zip Code, Latitude, Longitude, Number of Referrals, Tenure in Months, Offer, Phone Service, Avg Monthly Long Distance Charges, Multiple Lines, Internet Service, Internet Type, Avg Monthly GB Download, Online Security, Online Backup, Device Protection Plan, Premium Tech Support, Streaming TV, Streaming Movies, Streaming Music, Unlimited Data, Contract, Paperless Billing, Payment Method, Monthly Charge, Total Charges, Total Refunds, Total Extra Data Charges, Total Long Distance Charges, Total Revenue, Customer Status, Churn Category, Churn Reason
+
+Table Creation: A table named dbo.telecom  is created to store the sales data.
+
+The table structure includes columns for Customer ID, Gender, Age, Married, Number of Dependents, City, Zip Code, Latitude, Longitude, Number of Referrals, Tenure in Months, Offer, Phone Service, Avg Monthly Long Distance Charges, Multiple Lines, Internet Service, Internet Type, Avg Monthly GB Download, Online Security, Online Backup, Device Protection Plan, Premium Tech Support, Streaming TV, Streaming Movies, Streaming Music, Unlimited Data, Contract, Paperless Billing, Payment Method, Monthly Charge, Total Charges, Total Refunds, Total Extra Data Charges, Total Long Distance Charges, Total Revenue, Customer Status, Churn Category, Churn Reason
 
 
      CREATE TABLE dbo.telecom (
@@ -71,60 +76,57 @@ Table Creation: A table named dbo.telecom  is created to store the sales data. T
      Total_Revenue DECIMAL(10,2),
      Customer_Status VARCHAR(50),
      Churn_Category VARCHAR(50),
-     Churn_Reason TEXT
-
-);
+     Churn_Reason TEXT );
 
 ## Data Exploration & Cleaning
-1. Record Count: Count Total Records in the Datase
-   Customer Count: Count Distinct Customer IDs
-   Category Count: List of Distinct Customer Statuses
+    1. Record Count: Count Total Records in the Datase
+   
+    Customer Count: Count Distinct Customer IDs
+   
+    Category Count: List of Distinct Customer Statuses
                    List of Distinct Contract Types
-   Identify Duplicate Records Based on Customer_ID
-   Remove Duplicate Records from the Table
+   
+    Identify Duplicate Records Based on Customer_ID
+   
+    Remove Duplicate Records from the Table
 
 
-            SELECT COUNT(*) AS TOTAL_COUNT 
-            FROM dbo.telecom;
+            -- 1. Count Total Records
+    SELECT COUNT(*) AS TOTAL_COUNT 
+    FROM dbo.telecom;
 
-            SELECT COUNT(DISTINCT Customer_ID) AS DISTINCT_CUSTOMERS 
-            FROM dbo.telecom;
+    -- 2. Count Distinct Customers
+    SELECT COUNT(DISTINCT Customer_ID) AS DISTINCT_CUSTOMERS 
+    FROM dbo.telecom;
 
-            SELECT DISTINCT Customer_Status 
-            FROM dbo.telecom;
+    -- 3. Retrieve Distinct Customer Statuses
+    SELECT DISTINCT Customer_Status 
+    FROM dbo.telecom;
 
-            SELECT DISTINCT Contract 
-            FROM dbo.telecom;
+    -- 4. Retrieve Distinct Contract Types
+    SELECT DISTINCT Contract 
+    FROM dbo.telecom;
 
-       WITH duplicate_record AS (
-         SELECT 
+    -- 5. Identify Duplicate Records Based on Customer ID
+    WITH duplicate_record AS (
+    SELECT 
         Customer_ID,
-        ROW_NUMBER() OVER (PARTITION BY Customer_ID ORDER BY Age) AS     COUNT_VALUE 
-        FROM 
-        dbo.telecom
-       )   
-       SELECT 
-       Customer_ID
-       FROM 
-       duplicate_record 
-       WHERE 
-       COUNT_VALUE > 1;
-       WITH duplicate_record AS (
-        SELECT 
+        ROW_NUMBER() OVER (PARTITION BY Customer_ID ORDER BY Age) AS COUNT_VALUE 
+    FROM dbo.telecom
+    )   
+    SELECT 
+    Customer_ID
+    FROM 
+    duplicate_record 
+    WHERE 
+    COUNT_VALUE > 1;
+
+    -- 6. Remove Duplicate Records Based on Customer ID
+    WITH duplicate_record AS (
+    SELECT 
         Customer_ID,
-        ROW_NUMBER() OVER (PARTITION BY Customer_ID ORDER BY Age) AS     COUNT_VALUE 
-       FROM 
-        dbo.telecom
-        )
-       DELETE FROM dbo.telecom
-       WHERE Customer_ID IN (
-       SELECT 
-        Customer_ID
-       FROM 
-        duplicate_record 
-       WHERE 
-        COUNT_VALUE > 1
-       );
+        ROW_NUMBER() OVER (PARTITION BY Customer_ID ORDER BY Age) AS COUNT_VALUE 
+
 
 
 
