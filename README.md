@@ -100,7 +100,7 @@ The table structure includes columns for Customer ID, Gender, Age, Married, Numb
     -- 2. Count Distinct Customers
     SELECT COUNT(DISTINCT Customer_ID) AS DISTINCT_CUSTOMERS 
     FROM dbo.telecom;
-
+    
     -- 3. Retrieve Distinct Customer Statuses
     SELECT DISTINCT Customer_Status 
     FROM dbo.telecom;
@@ -141,18 +141,21 @@ The table structure includes columns for Customer ID, Gender, Age, Married, Numb
             (CAST(SUM(CASE WHEN Customer_Status = 'Churned' THEN 1 ELSE 0 END) AS DECIMAL(10,2)) / CAST(COUNT(*) AS DECIMAL(10,2))) * 100 AS ChurnRate 
              FROM 
              dbo.telecom;
-
+        ![image](https://github.com/user-attachments/assets/acb017c6-f1f4-48ea-bb1a-2bf1e14b3ef6)
 ### Find the average age of churned customers
 
         select AVG(Age)as the_average_age_of_churned_customers
 		from dbo.telecom 
 		where Customer_Status = 'Churned';
+         ![image](https://github.com/user-attachments/assets/89fb9f0a-a554-49e8-8175-e889d9bbafaf)
 
 ### Discover the most common contract types among churned customers
 
         select contract , count(*) as common_contract 
 		 from dbo.telecom where Customer_Status = 'Churned' 
 		 group by contract;
+   ![image](https://github.com/user-attachments/assets/482cfd07-9617-4c74-8969-3f5e0b22613c)
+
 ### Analyze the distribution of monthly charges among churned customers
 
 	      select 
@@ -173,82 +176,90 @@ The table structure includes columns for Customer ID, Gender, Age, Married, Numb
 		  END
 	      order by 
 	      min(Monthly_Charge) ;
-          '''
+          ![image](https://github.com/user-attachments/assets/d3460f48-4ce5-4397-bb26-071954ea4959)
+
 ## Create a query to identify the contract types that are most prone to churn
        
-         SELECT 
-         Contract, 
-        COUNT(*) AS TotalCustomers, 
-        SUM(CASE WHEN Customer_Status = 'Churned' THEN 1 ELSE 0 END) AS  
-         ChurnedCustomers,
-        (CAST(SUM(CASE WHEN Customer_Status = 'Churned' THEN 1 ELSE 0 END) AS DECIMAL(10,2)) / CAST(COUNT(*) AS DECIMAL(10,2))) * 100 AS ChurnRate
-        FROM 
-        dbo.telecom
-        GROUP BY 
-        Contract
-        ORDER BY 
-        ChurnRate DESC;
+	         SELECT 
+	         Contract, 
+	        COUNT(*) AS TotalCustomers, 
+	        SUM(CASE WHEN Customer_Status = 'Churned' THEN 1 ELSE 0 END) AS  
+	         ChurnedCustomers,
+	        (CAST(SUM(CASE WHEN Customer_Status = 'Churned' THEN 1 ELSE 0 END) AS DECIMAL(10,2)) / CAST(COUNT(*) AS DECIMAL(10,2))) * 100 AS ChurnRate
+	        FROM 
+	        dbo.telecom
+	        GROUP BY 
+	        Contract
+	        ORDER BY 
+	        ChurnRate DESC;
+                ![image](https://github.com/user-attachments/assets/a142e1ab-0c7b-471a-a7a8-e21ecf2f9140)
 
 Identify customers with high total charges who have churned
   
-     select Customer_ID,Total_Charges
-     from dbo.telecom 
-     where Customer_Status = 'Churned' and Total_Charges > (select AVG(Total_Charges) from dbo.telecom 
-     where Customer_Status = 'Churned')
-     order by Total_Charges desc;
-    
+		     select Customer_ID,Total_Charges
+		     from dbo.telecom 
+		     where Customer_Status = 'Churned' and Total_Charges > (select AVG(Total_Charges) from dbo.telecom 
+		     where Customer_Status = 'Churned')
+		     order by Total_Charges desc;
+                 ![image](https://github.com/user-attachments/assets/4cbc20dd-9c7d-40c6-bb48-aa38bd864ec1)
+
+		    
 ## Calculate the total charges distribution for churned and non-churned customers
-    SELECT 
-    Customer_Status,
-    CASE 
-       WHEN Total_Charges >= 2000 THEN '2000'
-	   when Total_Charges > 2000 and Total_Charges < = 5000 then '2000-5000'
-	   when Total_Charges > 5000 and Total_Charges < = 7000 then '5000-9000'
-	   when Total_Charges > 7000 and Total_Charges < = 10000 then '5000-9000'
-	   ELSE '10000 +' 
-	   END
-	   AS 
-	   Total_charges_distribution,
-	   COUNT(*) as customer_count
-    from dbo.telecom
-    GROUP BY 
-        Customer_Status,
-    CASE
-        WHEN Total_Charges >= 2000 THEN '2000'
-	   when Total_Charges >2000 and Total_Charges <= 5000 then '2000-5000'
-	   when Total_Charges  >5000 and Total_Charges <= 7000 then '5000-9000'
-	   when Total_Charges > 7000 and Total_Charges < = 10000 then '5000-9000'
-	   ELSE '10000 +'
-	   END
-	ORDER BY 
-	MIN(Total_Charges)
+		    SELECT 
+		    Customer_Status,
+		    CASE 
+		       WHEN Total_Charges >= 2000 THEN '2000'
+			   when Total_Charges > 2000 and Total_Charges < = 5000 then '2000-5000'
+			   when Total_Charges > 5000 and Total_Charges < = 7000 then '5000-9000'
+			   when Total_Charges > 7000 and Total_Charges < = 10000 then '5000-9000'
+			   ELSE '10000 +' 
+			   END
+			   AS 
+			   Total_charges_distribution,
+			   COUNT(*) as customer_count
+		    from dbo.telecom
+		    GROUP BY 
+		        Customer_Status,
+		    CASE
+		        WHEN Total_Charges >= 2000 THEN '2000'
+			   when Total_Charges >2000 and Total_Charges <= 5000 then '2000-5000'
+			   when Total_Charges  >5000 and Total_Charges <= 7000 then '5000-9000'
+			   when Total_Charges > 7000 and Total_Charges < = 10000 then '5000-9000'
+			   ELSE '10000 +'
+			   END
+			ORDER BY 
+			MIN(Total_Charges)
+                     ![image](https://github.com/user-attachments/assets/74209b4a-a48d-4212-9abc-c2edc426aefb)
+
 
 ## Calculate the average monthly charges for different contract types among churned customers
-     ROUND(AVG(Monthly_Charge),2) as avg_monthly_charges
-     from dbo.telecom 
-     where Customer_Status = 'Churned'
-     GROUP BY Contract
-	
+		     ROUND(AVG(Monthly_Charge),2) as avg_monthly_charges
+		     from dbo.telecom 
+		     where Customer_Status = 'Churned'
+		     GROUP BY Contract
+	            ![image](https://github.com/user-attachments/assets/35255d20-9da0-4aee-88ba-cb24110b6e26)
+
 ## Identify customers who have both online security and online backup services and have not churned
-     SELECT 
-     Customer_ID
-     from dbo.telecom 
-     where Online_Security = 1 and Online_Backup = 1 and 
-      Customer_Status <> 'Churned';
+		     SELECT 
+		     Customer_ID
+		     from dbo.telecom 
+		     where Online_Security = 1 and Online_Backup = 1 and 
+		      Customer_Status <> 'Churned';
+                    ![image](https://github.com/user-attachments/assets/b4c36412-13d8-4cce-a1c7-5865b71da9c2)
 
 
 ## Determine the most common combinations of services among churned customers
-     SELECT 
-      Internet_Service,
-      Phone_Service,
-      count(*) as ChurnedCustomers
-      from dbo.telecom 
-    where Customer_Status = 'Churned'
-      group by 
-      Internet_Service,
-      Phone_Service
-      order by ChurnedCustomers desc
-
+		     SELECT 
+		      Internet_Service,
+		      Phone_Service,
+		      count(*) as ChurnedCustomers
+		      from dbo.telecom 
+		    where Customer_Status = 'Churned'
+		      group by 
+		      Internet_Service,
+		      Phone_Service
+		      order by ChurnedCustomers desc
+		
 
 ## Identify the average total charges for customers grouped by gender and marital status
        
