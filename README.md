@@ -307,6 +307,9 @@ Identify customers with high total charges who have churned
 		   END 
 		   order by 
 		   max(Age) ;
+          
+	  
+![image](https://github.com/user-attachments/assets/1fbdbf65-c54b-41ad-83e8-a4d89680e859)
 
 ## Determine the average age and total charges for customers with multiple lines and online backup
 
@@ -315,6 +318,7 @@ Identify customers with high total charges who have churned
 	   AVG(Age) AS Avg_age ,
        AVG(Total_Charges) AS AVG_Total_Charges
 	   from dbo.telecom where Multiple_Lines = 1 and Online_Backup = 1
+![image](https://github.com/user-attachments/assets/8cef73f4-b301-4afb-bc65-cc090c137f24)
 
 
 ## Identify the contract types with the highest churn rate among senior citizens (age 65 and over)
@@ -334,6 +338,10 @@ Identify customers with high total charges who have churned
        Contract
        ORDER BY
        ChurnRate DESC;
+       
+       
+![image](https://github.com/user-attachments/assets/20dd7fe7-15bf-4a38-a776-8fc6477accbe)
+
 
 ## Calculate the average monthly charges for customers who have multiple lines and streaming TV
 
@@ -342,6 +350,7 @@ Identify customers with high total charges who have churned
 		 FROM
          dbo.telecom where Multiple_Lines = 1 and Streaming_TV = 1 and Customer_Status = 'Churned';
 
+![image](https://github.com/user-attachments/assets/c5bcc446-711a-4393-8e93-468c3dd95224)
 
 
 ## Identify the customers who have churned and used the most online services
@@ -392,7 +401,7 @@ Identify customers with high total charges who have churned
         dbo.telecom
 	    WHERE Contract = 'One Year'  AND Customer_Status = 'Churned'
 	    GROUP BY Gender
-
+![image](https://github.com/user-attachments/assets/7e4859ac-7188-4642-81ba-331cad8748df)
 
 ## Calculate the average monthly charges and total charges for customers who have churned, grouped by contract type and internet service type
 
@@ -406,6 +415,8 @@ Identify customers with high total charges who have churned
 	  group by 
 	  Contract,
 	  Internet_Type
+   ![image](https://github.com/user-attachments/assets/f72cb50b-9d9d-42d7-a6ff-6c99e87fb588)
+
 
 ## Find the customers who have churned and are not using online services, and their average total charges
 
@@ -420,6 +431,8 @@ Identify customers with high total charges who have churned
 	  and Device_Protection_Plan = 0
       and Premium_Tech_Support = 0
 	  order by Total_Charges
+   ![image](https://github.com/user-attachments/assets/99f21392-71e3-4b61-ae0f-f53bfe44ffa3)
+
 
 ## Calculate the average monthly charges and total charges for customers who have churned, grouped by the number of dependents
 
@@ -433,6 +446,7 @@ Identify customers with high total charges who have churned
      dbo.telecom WHERE Customer_Status = 'Churned' 
      GROUP BY Number_of_Dependents
      ORDER BY Number_of_Dependents 
+![image](https://github.com/user-attachments/assets/8d555a55-ff06-459a-b770-c3975fbba9b1)
 
 ## Identify the customers who have churned, and their contract duration in months (for monthly contracts)
           select 
@@ -449,6 +463,9 @@ Identify customers with high total charges who have churned
           dbo.telecom WHERE Customer_Status = 'Churned' 
 
 		  ORDER BY Contract_Duration_InMonths DESC
+    
+![image](https://github.com/user-attachments/assets/f35b277f-b93d-463a-a0c0-a4160a171db5)
+
 
 ## Determine the average age and total charges for customers who have churned, grouped by internet service and phone service
 
@@ -464,6 +481,9 @@ Identify customers with high total charges who have churned
 		GROUP BY 
 		Internet_Service,
 		Phone_Service
+  
+  ![image](https://github.com/user-attachments/assets/4e2a42ba-817d-4cbd-a38f-8c4624febdb2)
+
 
 ## Create a view to find the customers with the highest monthly charges in each contract type
 		  
@@ -485,6 +505,10 @@ CREATE VIEW HighCharge_Customers_ByContract AS
 
                         SELECT * 
                         FROM HighCharge_Customers_ByContract;
+			
+    
+![image](https://github.com/user-attachments/assets/6a287d5f-dd03-43d8-88b8-7fdfa2b4e79a)
+
 
  ##Create a view to find the customers who have churned and their cumulative total charges over time
                 
@@ -507,26 +531,28 @@ CREATE VIEW HighCharge_Customers_ByContract AS
     
      SELECT * FROM Churned_Customer_Cumulative_Charges
 
+   ![image](https://github.com/user-attachments/assets/f63ec562-5de1-48ed-aba0-ffaa94399444)
 
 ## Stored Procedure to Identify High-Value Customers at Risk of Churni
 
-    CREATE PROCEDURE IdentifyHighValueCustomersAtRisk
-    AS
-    BEGIN
-    --Define threshold for high-value customers (e.g., top 20% by TotalCharges)
-     DECLARE @Percentile DECIMAL(5,2) = 0.8; 
+			    CREATE PROCEDURE IdentifyHighValueCustomersAtRisk
+			    AS
+			    BEGIN
+			    --Define threshold for high-value customers (e.g., top 20% by TotalCharges)
+			     DECLARE @Percentile DECIMAL(5,2) = 0.8; 
+			
+			    -- Calculate threshold for high-value customers
+			     DECLARE @HighValueChargeThreshold DECIMAL(10,2);
+			     SELECT @HighValueChargeThreshold = PERCENTILE_CONT(@Percentile) WITHIN GROUP (ORDER BY Total_Charges) OVER () FROM dbo.telecom; 
+			
+			    -- Identify high-value customers
+			    ;  WITH HighValueCustomers AS (
+			        SELECT Customer_ID
+			        FROM dbo.telecom
+			        WHERE Total_Charges >= @HighValueChargeThreshold
+			    )
 
-    -- Calculate threshold for high-value customers
-     DECLARE @HighValueChargeThreshold DECIMAL(10,2);
-     SELECT @HighValueChargeThreshold = PERCENTILE_CONT(@Percentile) WITHIN GROUP (ORDER BY Total_Charges) OVER () FROM dbo.telecom; 
-
-    -- Identify high-value customers
-    ;  WITH HighValueCustomers AS (
-        SELECT Customer_ID
-        FROM dbo.telecom
-        WHERE Total_Charges >= @HighValueChargeThreshold
-    )
-
+      ![image](https://github.com/user-attachments/assets/1ae28ed5-6d20-4796-a777-215bbca8a56c)
 
 ## Identify high-value customers at risk (churned)
     SELECT 
