@@ -481,6 +481,7 @@ Identify customers with high total charges who have churned
 		GROUP BY 
 		Internet_Service,
 		Phone_Service
+
   
   ![image](https://github.com/user-attachments/assets/4e2a42ba-817d-4cbd-a38f-8c4624febdb2)
 
@@ -505,7 +506,8 @@ CREATE VIEW HighCharge_Customers_ByContract AS
 
                         SELECT * 
                         FROM HighCharge_Customers_ByContract;
-			
+
+   
     
 ![image](https://github.com/user-attachments/assets/6a287d5f-dd03-43d8-88b8-7fdfa2b4e79a)
 
@@ -530,6 +532,8 @@ CREATE VIEW HighCharge_Customers_ByContract AS
                            t1.Monthly_Charge;
     
      SELECT * FROM Churned_Customer_Cumulative_Charges
+
+
 
    ![image](https://github.com/user-attachments/assets/f63ec562-5de1-48ed-aba0-ffaa94399444)
 
