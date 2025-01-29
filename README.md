@@ -147,13 +147,15 @@ The table structure includes columns for Customer ID, Gender, Age, Married, Numb
         select AVG(Age)as the_average_age_of_churned_customers
 		from dbo.telecom 
 		where Customer_Status = 'Churned';
-         ![image](https://github.com/user-attachments/assets/89fb9f0a-a554-49e8-8175-e889d9bbafaf)
+  
+![image](https://github.com/user-attachments/assets/89fb9f0a-a554-49e8-8175-e889d9bbafaf)
 
 ### Discover the most common contract types among churned customers
 
         select contract , count(*) as common_contract 
 		 from dbo.telecom where Customer_Status = 'Churned' 
 		 group by contract;
+   
    ![image](https://github.com/user-attachments/assets/482cfd07-9617-4c74-8969-3f5e0b22613c)
 
 ### Analyze the distribution of monthly charges among churned customers
@@ -176,7 +178,8 @@ The table structure includes columns for Customer ID, Gender, Age, Married, Numb
 		  END
 	      order by 
 	      min(Monthly_Charge) ;
-          ![image](https://github.com/user-attachments/assets/d3460f48-4ce5-4397-bb26-071954ea4959)
+       
+ ![image](https://github.com/user-attachments/assets/d3460f48-4ce5-4397-bb26-071954ea4959)
 
 ## Create a query to identify the contract types that are most prone to churn
        
@@ -192,7 +195,7 @@ The table structure includes columns for Customer ID, Gender, Age, Married, Numb
 	        Contract
 	        ORDER BY 
 	        ChurnRate DESC;
-                ![image](https://github.com/user-attachments/assets/a142e1ab-0c7b-471a-a7a8-e21ecf2f9140)
+![image](https://github.com/user-attachments/assets/a142e1ab-0c7b-471a-a7a8-e21ecf2f9140)
 
 Identify customers with high total charges who have churned
   
@@ -201,7 +204,7 @@ Identify customers with high total charges who have churned
 		     where Customer_Status = 'Churned' and Total_Charges > (select AVG(Total_Charges) from dbo.telecom 
 		     where Customer_Status = 'Churned')
 		     order by Total_Charges desc;
-                 ![image](https://github.com/user-attachments/assets/4cbc20dd-9c7d-40c6-bb48-aa38bd864ec1)
+ ![image](https://github.com/user-attachments/assets/4cbc20dd-9c7d-40c6-bb48-aa38bd864ec1)
 
 		    
 ## Calculate the total charges distribution for churned and non-churned customers
@@ -229,7 +232,7 @@ Identify customers with high total charges who have churned
 			   END
 			ORDER BY 
 			MIN(Total_Charges)
-                     ![image](https://github.com/user-attachments/assets/74209b4a-a48d-4212-9abc-c2edc426aefb)
+ ![image](https://github.com/user-attachments/assets/74209b4a-a48d-4212-9abc-c2edc426aefb)
 
 
 ## Calculate the average monthly charges for different contract types among churned customers
@@ -237,7 +240,7 @@ Identify customers with high total charges who have churned
 		     from dbo.telecom 
 		     where Customer_Status = 'Churned'
 		     GROUP BY Contract
-	            ![image](https://github.com/user-attachments/assets/35255d20-9da0-4aee-88ba-cb24110b6e26)
+ ![image](https://github.com/user-attachments/assets/35255d20-9da0-4aee-88ba-cb24110b6e26)
 
 ## Identify customers who have both online security and online backup services and have not churned
 		     SELECT 
@@ -245,7 +248,7 @@ Identify customers with high total charges who have churned
 		     from dbo.telecom 
 		     where Online_Security = 1 and Online_Backup = 1 and 
 		      Customer_Status <> 'Churned';
-                    ![image](https://github.com/user-attachments/assets/b4c36412-13d8-4cce-a1c7-5865b71da9c2)
+ ![image](https://github.com/user-attachments/assets/b4c36412-13d8-4cce-a1c7-5865b71da9c2)
 
 
 ## Determine the most common combinations of services among churned customers
@@ -259,6 +262,8 @@ Identify customers with high total charges who have churned
 		      Internet_Service,
 		      Phone_Service
 		      order by ChurnedCustomers desc
+![image](https://github.com/user-attachments/assets/de1843ff-41f8-4022-ba08-7d6ae2dc6b57)
+
 		
 
 ## Identify the average total charges for customers grouped by gender and marital status
@@ -272,6 +277,9 @@ Identify customers with high total charges who have churned
 	   Gender,
 	   Married
 	   ORDER BY average_total_charges DESC
+   
+![image](https://github.com/user-attachments/assets/33d11491-e0df-4032-924f-d2662c733f99)
+
 
 
 ## Calculate the average monthly charges for different age groups among churned customers
