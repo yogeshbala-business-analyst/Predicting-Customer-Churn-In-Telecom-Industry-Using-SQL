@@ -5,6 +5,7 @@ This project is designed to demonstrate SQL skills and techniques typically used
 Predicting Customer Churn in Telecom Industry Data Set The project involves setting up a Customer_Churn database, performing exploratory data analysis (EDA), and answering specific business questions through SQL queries.
 ## Dashboard 
 ![Screenshot 2025-01-17 193417](https://github.com/user-attachments/assets/385592ab-6fd6-4e27-a689-ca6c5da04e72)
+![Screenshot 2025-01-30 192418](https://github.com/user-attachments/assets/c5fd4e5c-e342-431b-acd4-4cc658a70161)
 
 
 ## Objectives
@@ -141,7 +142,7 @@ The table structure includes columns for Customer ID, Gender, Age, Married, Numb
             (CAST(SUM(CASE WHEN Customer_Status = 'Churned' THEN 1 ELSE 0 END) AS DECIMAL(10,2)) / CAST(COUNT(*) AS DECIMAL(10,2))) * 100 AS ChurnRate 
              FROM 
              dbo.telecom;
-        ![image](https://github.com/user-attachments/assets/acb017c6-f1f4-48ea-bb1a-2bf1e14b3ef6)
+ ![image](https://github.com/user-attachments/assets/acb017c6-f1f4-48ea-bb1a-2bf1e14b3ef6)
 ### Find the average age of churned customers
 
         select AVG(Age)as the_average_age_of_churned_customers
