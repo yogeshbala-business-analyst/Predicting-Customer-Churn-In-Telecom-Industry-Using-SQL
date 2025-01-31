@@ -556,7 +556,7 @@ CREATE VIEW HighCharge_Customers_ByContract AS
 			        WHERE Total_Charges >= @HighValueChargeThreshold
 			    )
 
-      ![image](https://github.com/user-attachments/assets/1ae28ed5-6d20-4796-a777-215bbca8a56c)
+![image](https://github.com/user-attachments/assets/1ae28ed5-6d20-4796-a777-215bbca8a56c)
 
 ## Identify high-value customers at risk (churned)
     SELECT 
